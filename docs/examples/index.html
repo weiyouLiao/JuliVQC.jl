@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Examples · JuliVQC.jl</title><meta name="title" content="Examples · JuliVQC.jl"/><meta property="og:title" content="Examples · JuliVQC.jl"/><meta property="twitter:title" content="Examples · JuliVQC.jl"/><meta name="description" content="Documentation for JuliVQC.jl."/><meta property="og:description" content="Documentation for JuliVQC.jl."/><meta property="twitter:description" content="Documentation for JuliVQC.jl."/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../"><img src="../assets/logo.png" alt="JuliVQC.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../">JuliVQC.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../gettingstarted/">Getting Started</a></li><li><a class="tocitem" href="../manual/">Manual</a></li><li class="is-active"><a class="tocitem" href>Examples</a><ul class="internal"><li><a class="tocitem" href="#Creating-a-Variational-Quantum-Circuit"><span>Creating a Variational Quantum Circuit</span></a></li><li><a class="tocitem" href="#A-Simple-Application-of-JuliVQC-and-Flux"><span>A Simple Application of JuliVQC and Flux</span></a></li><li><a class="tocitem" href="#Utility-Functions"><span>Utility Functions</span></a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Examples</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Examples</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/weiyouLiao/JuliVQC.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/weiyouLiao/JuliVQC.jl" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Examples"><a class="docs-heading-anchor" href="#Examples">Examples</a><a id="Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Examples" title="Permalink"></a></h1><p>This section demonstrates how to use <strong>JuliVQC.jl</strong> to create variational quantum circuits (VQCs) and integrate them with <strong>Flux.jl</strong> for optimization tasks. Additionally, some utility functions provided by the library are introduced.</p><hr/><h2 id="Creating-a-Variational-Quantum-Circuit"><a class="docs-heading-anchor" href="#Creating-a-Variational-Quantum-Circuit">Creating a Variational Quantum Circuit</a><a id="Creating-a-Variational-Quantum-Circuit-1"></a><a class="docs-heading-anchor-permalink" href="#Creating-a-Variational-Quantum-Circuit" title="Permalink"></a></h2><p>A variational quantum circuit (VQC) is a parameterized quantum circuit composed of gates with tunable parameters. Below is an example of how to manually construct such a circuit.</p><pre><code class="language-julia hljs">using JuliVQC,QuantumCircuits
+
+# Circuit parameters
+L = 3         # Number of qubits
+depth = 2     # Depth of the circuit
+
+# Create an empty quantum circuit
+circuit = QCircuit()
+
+# Add parameterized gates to the circuit
+for i in 1:L
+    push!(circuit, RzGate(i, rand(),isparas=true))# Rz rotation with random parameter
+	push!(circuit, RyGate(i, rand(),isparas=true))# Ry rotation with random parameter
+	push!(circuit, RzGate(i, rand(),isparas=true))# Rz rotation with random parameter
+end
+
+# Add entangling gates and repeat for each layer of depth
+for l in 1:depth
+    for i in 1:L-1
+        push!(circuit, CNOTGate((i, i+1)))       # Add CNOT gate
+    end
+    for i in 1:L
+		push!(circuit, RzGate(i, rand(),isparas=true))
+		push!(circuit, RxGate(i, rand(),isparas=true))
+		push!(circuit, RzGate(i, rand(),isparas=true))
+    end
+end
+
+# Extract all the parameters of the circuit
+paras = parameters(circuit)
+
+# Reset all the parameters of the circuit to zeros
+new_paras = zeros(length(paras))
+set_parameters!(new_paras, circuit)
+paras = parameters(circuit)  # Updated parameters
+
+# Compute the gradient of a loss function with respect to the circuit parameters
+using Zygote
+target_state = StateVector([.0,.0,.0,.0,.0,.0,.1,.0])        # Random target quantum state
+initial_state = StateVector(3)       # Initial quantum state
+loss(c) = distance(target_state, c * initial_state)  # Define the loss function
+grad = gradient(loss, circuit)  # Compute the gradient</code></pre><p>The above process of creating a VQC has already been encapsulated into the following convenient function:</p><pre><code class="language-julia hljs">variational_circuit(L::Int, depth::Int, g::Function=rand)</code></pre><p>For example, you can directly create a VQC by calling:</p><pre><code class="language-julia hljs">circuit = variational_circuit(3, 2)</code></pre><hr/><h2 id="A-Simple-Application-of-JuliVQC-and-Flux"><a class="docs-heading-anchor" href="#A-Simple-Application-of-JuliVQC-and-Flux">A Simple Application of JuliVQC and Flux</a><a id="A-Simple-Application-of-JuliVQC-and-Flux-1"></a><a class="docs-heading-anchor-permalink" href="#A-Simple-Application-of-JuliVQC-and-Flux" title="Permalink"></a></h2><p>This example demonstrates how to integrate a variational quantum circuit  with <strong>Flux.jl</strong>, a machine learning library for Julia. The task is to optimize the parameters of a VQC to prepare a target quantum state.</p><pre><code class="language-julia hljs">using VQC
+using Zygote
+using Flux.Optimise
+
+# Create a variational quantum circuit
+circuit = variational_circuit(3, 2)
+
+# Define the target state and initial state
+target_state = StateVector([.0,.0,.0,.0,.0,.0,.1,.0])  # Target quantum state
+initial_state = StateVector(3)                                 # Initial quantum state
+
+# Define the loss function: distance between target and evolved state
+loss(c) = distance(target_state, c * initial_state)
+
+# Initialize the optimizer
+opt = ADAM()
+
+# Number of training epochs
+epochs = 10
+
+# Extract initial parameters
+x0 = parameters(circuit)
+
+# Optimization loop
+for i in 1:epochs
+    # Compute the gradient of the loss with respect to the circuit parameters
+    grad = collect_variables(gradient(loss, circuit))
+    
+    # Update the parameters using the optimizer
+    Optimise.update!(opt, x0, grad)
+    set_parameters!(x0, circuit)  # Update circuit parameters
+    
+    # Print the loss value for each epoch
+    println(&quot;Loss value at iteration $i: $(loss(circuit))&quot;)
+end</code></pre><h3 id="Explanation-of-the-Workflow"><a class="docs-heading-anchor" href="#Explanation-of-the-Workflow">Explanation of the Workflow</a><a id="Explanation-of-the-Workflow-1"></a><a class="docs-heading-anchor-permalink" href="#Explanation-of-the-Workflow" title="Permalink"></a></h3><ol><li><strong>Circuit Initialization</strong>: A variational quantum circuit (<code>variational_circuit</code>) is initialized with random parameters.</li><li><strong>Target and Initial States</strong>: The target state and initial state are defined. The circuit&#39;s goal is to transform the initial state into the target state.</li><li><strong>Loss Function</strong>: The loss function quantifies the &quot;distance&quot; between the target state and the circuit-evolved state.</li><li><strong>Optimization</strong>: Using Flux&#39;s <code>ADAM</code> optimizer, the circuit parameters are iteratively updated to minimize the loss.</li></ol><hr/><h2 id="Utility-Functions"><a class="docs-heading-anchor" href="#Utility-Functions">Utility Functions</a><a id="Utility-Functions-1"></a><a class="docs-heading-anchor-permalink" href="#Utility-Functions" title="Permalink"></a></h2><p>The following utility functions are provided by <strong>JuliVQC.jl</strong> to facilitate working with quantum circuits:</p><pre><code class="language-julia hljs">collect_variables(args...)           # Collect all variables (parameters) from the circuit
+parameters(args...)                  # Get the parameters of the circuit
+set_parameters!(coeff::AbstractVector{&lt;:Number}, args...)  # Set parameters of the circuit
+simple_gradient(f, args...; dt::Real=1.0e-6)               # Compute numerical gradients
+check_gradient(f, args...; dt::Real=1.0e-6, atol::Real=1.0e-4, verbose::Int=0)  
+# Verify the correctness of gradients</code></pre><p>These functions simplify common operations, such as extracting or modifying circuit parameters and computing gradients, making the library more user-friendly.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../manual/">« Manual</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.8.0 on <span class="colophon-date" title="Tuesday 24 December 2024 09:08">Tuesday 24 December 2024</span>. Using Julia version 1.11.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
